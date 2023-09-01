@@ -4,11 +4,13 @@ const db = require('./db')
 
 const { json } = require("express");
 const express = require("express");
+const cors = require("cors")
 const morgan = require("morgan")
 
 const app = express();
 
 app.use(morgan("dev"))
+app.use(cors())
 app.use(express.json())
 
 app.get("/api/v1/restaurants", async (req, res) => {
