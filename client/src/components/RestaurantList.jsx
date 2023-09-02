@@ -20,7 +20,8 @@ const RestaurantList = (props) => {
     }, [])
 
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (e, id) => {
+        e.stopPropagation();
         try {              
             const response = await RestaurantFinder.delete(`/${id}`)
             setRestaurants(restaurants.filter(restaurant => {
@@ -31,11 +32,15 @@ const RestaurantList = (props) => {
         }
     }
   
-   const handleUpdate = (id) => {
+   const handleUpdate = (e,id) => {
+        e.stopPropagation();
         console.log(id)
         navigate(`/restaurants/${id}/update`);
     };
 
+    const handleRestaurantDetail = (id) => {
+        navigate(`/restaurants/${id}`)
+    };
 
   return (
     <div className="list-group">
@@ -53,7 +58,9 @@ const RestaurantList = (props) => {
         <tbody>
             {restaurants && restaurants.map(restaurant => {
                 return (
-                    <tr key={restaurant.id}>
+                    <tr key={restaurant.id}
+                        onClick={() => handleRestaurantDetail(restaurant.id)}
+                    >
                         <td>{restaurant.name}</td>
                         <td>{restaurant.location}</td>
                         <td>{"$".repeat(restaurant.price_range)}</td>
@@ -61,7 +68,7 @@ const RestaurantList = (props) => {
                         <td>
                             <button
                               className="btn btn-warning"
-                              onClick={() => handleUpdate(restaurant.id)}
+                              onClick={(e) => handleUpdate(e, restaurant.id)}
                             >
                               Update
                             </button>
@@ -69,7 +76,7 @@ const RestaurantList = (props) => {
                         <td>
                             <button
                               className="btn btn-danger"
-                              onClick={() => handleDelete(restaurant.id)}
+                              onClick={(e) => handleDelete(e, restaurant.id)}
                             >
                               Delete
                             </button>
