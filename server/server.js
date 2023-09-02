@@ -44,7 +44,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
                 status: "success",
                 results: results.rows.length,
                 data: {
-                    restaurants: results.rows
+                    restaurants: results.rows[0]
                 }
             })
         }
@@ -90,7 +90,7 @@ app.patch("/api/v1/restaurants/:id", async (req, res) => {
             res.status(200).json({
                 status: "success",
                 data: {
-                    restaurants: results.rows[0]
+                    restaurant: results.rows[0]
                 }
             })
         }
@@ -114,11 +114,11 @@ app.delete("/api/v1/restaurants/:id", async (req, res) => {
             })
         }
         else {
-            res.status(200).json({
+            res.status(204).json({
                 status: "success",
                 data: {
                     message: "restaurant deleted",
-                    restaurants: results.rows[0]
+                    restaurant: results.rows[0]
                 }
             })
         }

@@ -16,12 +16,12 @@ const AddReview = () => {
                 location: location,
                 price_range: priceRange,
               });
-              console.log(response.data.data.restaurant);
               addRestaurants(response.data.data.restaurant);
             } catch (err) {
               console.log(err);
         }
     };
+
   return (
     <div className="mb-4">
       <form action="">
